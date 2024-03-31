@@ -25,4 +25,4 @@ class CustomRequest:
                 return some_result.text
             try_count += 1
             time.sleep(2)
-        raise MyException("Превышено количество запросов")
+        raise MyException()
