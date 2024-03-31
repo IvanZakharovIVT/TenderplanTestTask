@@ -4,10 +4,11 @@ from bs4 import BeautifulSoup, Tag
 from celery import Celery, Task
 
 from custom_request import CustomRequest
+from link_task import LinkTask
 
 
 class PageTask(Task):
-    name = 'parent_task'
+    name = 'page_task'
     main_address = "https://zakupki.gov.ru"
     pattern = re.compile(r'/epz/.+printForm/view.html.+regNumber=\d+')
 
@@ -24,8 +25,13 @@ class PageTask(Task):
         all_tags = soup.find_all(name="a", href=self.pattern)
         converted_ult_list = [self.convert_url(item) for item in all_tags]
 
+        # sub_task_list = []
+
         for item in converted_ult_list:
-            pass
+            sub_task = LinkTask().delay(item, request)
+            sub_task.get()
+            # sub_task_list.append(sub_task)
+
         # Execute subtask 1
         # result1 = SubTask1().delay(x, y)
 

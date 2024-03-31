@@ -29,9 +29,6 @@ soup = BeautifulSoup(some_result.text, 'html.parser')
 test1 = soup.find_all(name="a", href=pattern)
 test_arr = [convert_url(item) for item in test1]
 
-reg1 = r"publishDTInEIS\>.+\<"
-reg2 = r"\d.+\d"
-
 for item in test_arr:
     request = my_request.get(item)
     btf = xmltodict.parse(request.text)
