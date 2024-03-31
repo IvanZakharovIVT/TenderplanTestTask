@@ -10,7 +10,8 @@ from custom_request import CustomRequest
 class LinkTask(Task):
     name = 'link_task'
 
-    def run(self, link_url: str, request: CustomRequest):
+    def run(self, link_url: str):
+        request = CustomRequest()
         response = request.get(link_url)
         btf = xmltodict.parse(response.text)
         publishDTInEIS = None

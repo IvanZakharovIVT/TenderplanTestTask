@@ -1,10 +1,10 @@
 import re
 
 from bs4 import BeautifulSoup, Tag
-from celery import Celery, Task
+from celery import Task
 
 from custom_request import CustomRequest
-from link_task import LinkTask
+from tasks.link_task import LinkTask
 
 
 class PageTask(Task):
@@ -17,7 +17,8 @@ class PageTask(Task):
         href = href.replace("view.html", "viewXml.html")
         return f"{self.main_address}{href}"
 
-    def run(self, page_url: str, request: CustomRequest):
+    def run(self, page_url: str):
+        request = CustomRequest()
         response = request.get(page_url)
 
         soup = BeautifulSoup(response.text, 'html.parser')
@@ -28,7 +29,7 @@ class PageTask(Task):
         # sub_task_list = []
 
         for item in converted_ult_list:
-            sub_task = LinkTask().delay(item, request)
+            sub_task = LinkTask().delay(item)
             sub_task.get()
             # sub_task_list.append(sub_task)
 
