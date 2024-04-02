@@ -26,23 +26,7 @@ class PageTask(Task):
         all_tags = soup.find_all(name="a", href=self.pattern)
         converted_ult_list = [self._convert_url(item) for item in all_tags]
 
-        # sub_task_list = []
-
         for item in converted_ult_list:
-            sub_task = LinkTask().delay(item)
-            # sub_task.get()
-            # sub_task_list.append(sub_task)
+            LinkTask().delay(item)
         return True
 
-        # Execute subtask 1
-        # result1 = SubTask1().delay(x, y)
-
-        # Execute subtask 2
-        # result2 = SubTask2().delay(x, y)
-        #
-        # # Wait for subtasks to complete and retrieve results
-        # result1_value = result1.get()
-        # result2_value = result2.get()
-        #
-        # # Perform some operation with subtask results
-        # return result1_value + result2_value

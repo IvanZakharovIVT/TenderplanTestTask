@@ -19,15 +19,3 @@ class LinkTask(Task):
                 publishDTInEIS = level2.get('publishDTInEIS', None)
         print(f"publishDTInEIS: {publishDTInEIS}")
         return True
-        # Execute subtask 1
-        # result1 = SubTask1().delay(x, y)
-
-        # Execute subtask 2
-        # result2 = SubTask2().delay(x, y)
-        #
-        # # Wait for subtasks to complete and retrieve results
-        # result1_value = result1.get()
-        # result2_value = result2.get()
-        #
-        # # Perform some operation with subtask results
-        # return result1_value + result2_value
