@@ -17,5 +17,6 @@ class LinkTask(Task):
             level2 = level1.get('commonInfo')
             if level2:
                 publishDTInEIS = level2.get('publishDTInEIS', None)
+        print(link_url)
         print(f"publishDTInEIS: {publishDTInEIS}")
         return True
