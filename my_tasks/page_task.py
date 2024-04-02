@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup, Tag
 from celery import Task
 
 from custom_request import CustomRequest
-from tasks.link_task import LinkTask
+from my_tasks.link_task import LinkTask
 
 
 class PageTask(Task):
@@ -24,14 +24,15 @@ class PageTask(Task):
         soup = BeautifulSoup(response.text, 'html.parser')
 
         all_tags = soup.find_all(name="a", href=self.pattern)
-        converted_ult_list = [self.convert_url(item) for item in all_tags]
+        converted_ult_list = [self._convert_url(item) for item in all_tags]
 
         # sub_task_list = []
 
         for item in converted_ult_list:
             sub_task = LinkTask().delay(item)
-            sub_task.get()
+            # sub_task.get()
             # sub_task_list.append(sub_task)
+        return True
 
         # Execute subtask 1
         # result1 = SubTask1().delay(x, y)

@@ -1,8 +1,5 @@
-import re
-
 import xmltodict
-from bs4 import BeautifulSoup, Tag
-from celery import Celery, Task
+from celery import Task
 
 from custom_request import CustomRequest
 
@@ -21,6 +18,7 @@ class LinkTask(Task):
             if level2:
                 publishDTInEIS = level2.get('publishDTInEIS', None)
         print(f"publishDTInEIS: {publishDTInEIS}")
+        return True
         # Execute subtask 1
         # result1 = SubTask1().delay(x, y)
 
